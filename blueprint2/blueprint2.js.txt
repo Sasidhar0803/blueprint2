@@ -1,0 +1,31 @@
+import { LightningElement, track } from 'lwc';
+import getDataFromAPI from '@salesforce/apex/ExternalAPIIntegration.getDataFromAPI';
+
+export default class ExternalAPIComponent extends LightningElement {
+    @track parameter = '';
+    @track responseData = null;
+    @track error = null;
+
+    handleInputChange(event) {
+        this.parameter = event.target.value;
+    }
+
+    handleSearchButton() {
+        getDataFromAPI({ parameter: this.parameter })
+            .then((result) => {
+                let data = JSON.parse(result);
+                if (data.success) {
+                    this.responseData = data;
+                    this.error = null;
+                } else {
+                    this.error = 'No results found.';
+                    this.responseData = null;
+                }
+            })
+            .catch((error) => {
+                this.error = 'Error occurred while fetching data.';
+                this.responseData = null;
+                console.error(error);
+            });
+    }
+}

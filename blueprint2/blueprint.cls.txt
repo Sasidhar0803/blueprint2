@@ -1,0 +1,14 @@
+public class ExternalAPIIntegration {
+    @AuraEnabled(cacheable=true)
+    public static String getDataFromAPI(String parameter) {
+        String apiUrl = 'https://api.example.com/v1/data?parameter=' + parameter;
+        HttpRequest req = new HttpRequest();
+        req.setEndpoint(apiUrl);
+        req.setMethod('GET');
+        
+        Http http = new Http();
+        HttpResponse res = http.send(req);
+        
+        return res.getBody();
+    }
+}
