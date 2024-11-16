@@ -1,0 +1,37 @@
+integration data retreive
+
+const data = {
+  "a": 1,
+  "b": 2,
+  "c": [
+    {
+      "d": 4,
+      "e": [
+        {
+          "f": 5
+        }
+      ]
+    }
+  ]
+};
+
+// Access the value of 'f'
+const value_of_f = data.c[0].e[0].f;
+
+console.log(value_of_f); // Output: 5
+
+const data = {
+  "a": 1,
+  "b": 2,
+  "c": {
+    "d": 4,
+    "e": {
+      "f": 5
+    }
+  }
+};
+
+// Access the value of 'f'
+const value_of_f = data.c.e.f;
+
+console.log(value_of_f); // Output: 5
